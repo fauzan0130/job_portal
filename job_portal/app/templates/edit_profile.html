@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Edit Profile</h1>
+  
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <label for="{{ profile_form.bio.id_for_label }}">Bio:</label>
+      {{ profile_form.bio }}
+
+      <br>
+
+      <label for="{{ profile_form.profile_picture.id_for_label }}">Profile Picture:</label>
+      {{ profile_form.profile_picture }}
+
+      <br>
+
+      <label for="{{ profile_form.linkedin_profile.id_for_label }}">LinkedIn Profile:</label>
+      {{ profile_form.linkedin_profile }}
+
+      <br>
+
+      <label for="{{ profile_form.website.id_for_label }}">Website:</label>
+      {{ profile_form.website }}
+
+      <br>
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+{% endblock %}

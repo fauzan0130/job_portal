@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ user.username }}'s Profile</h1>
+  <p>{{ user.userprofile.bio }}</p>
+  <a href="{{ user.userprofile.linkedin_profile }}" target="_blank" class="btn btn-info">LinkedIn Profile</a>
+  <a href="{{ user.userprofile.website }}" target="_blank" class="btn btn-info">Website</a>
+
+  <h2>Applied Jobs</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Location</th>
+        <th>Posted Date</th>
+        <th>Status</th> <!-- Add a new column for application status -->
+        <th>Resume</th> <!-- Add a new column for resume -->
+      </tr>
+    </thead>
+    <tbody>
+      {% for application in applied_jobs %}
+        <tr>
+          <td><a href="{% url 'job_applications' application.job.id %}">{{ application.job.title }}</a></td>
+          <td>{{ application.job.category.name }}</td>
+          <td>{{ application.job.location }}</td>
+          <td>{{ application.job.posted_date|date:"F d, Y" }}</td>
+          <td>
+            {% if application.approved %}
+                <span class="text-success">Approved</span>
+            {% elif application.shortlisted %}
+                <span class="text-info">Shortlisted</span>
+            {% else %}
+                <span class="text-secondary">Pending</span>
+            {% endif %}
+        </td>
+          <td>
+            {% if application.resume %}
+              <a href="{{ application.resume.url }}" target="_blank">View Resume</a> <!-- Add a link to view the resume -->
+            {% else %}
+              No Resume Available
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+</div>
+
+{% endblock %}

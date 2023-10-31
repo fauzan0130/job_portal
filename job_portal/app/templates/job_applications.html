@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Job Applications</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Applicant Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Resume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+            <tr>
+                <td>{{ application.name }}</td>
+                <td>{{ application.phone }}</td>
+                <td>{{ application.email }}</td>
+                <td>{{ application.location }}</td>
+                <td>
+                    {% if application.resume %}
+                      <a href="{{ application.resume.url }}" target="_blank">View Resume</a> <!-- Add a link to view the resume -->
+                    {% else %}
+                      No Resume Available
+                    {% endif %}
+                  </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'job_list' %}" class="btn btn-secondary">Back to Job Listings</a>
+
+
+   
+
+
+{% endblock %}
+
+
+<!--  -->
+
